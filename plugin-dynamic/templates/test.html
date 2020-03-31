@@ -1,0 +1,11 @@
+{% extends "admin/base.html" %}
+
+{% block content %}
+	<div class="container">
+		{{ content | safe }}
+	</div>
+{% endblock %}
+
+{% block scripts %}
+    <script defer src="{{ url_for('plugins.dynamic_container.assets', path='test.js') }}"></script>
+{% endblock %}

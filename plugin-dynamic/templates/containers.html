@@ -1,0 +1,95 @@
+{% extends "admin/base.html" %}
+
+{% block stylesheets %}
+{% endblock %}
+
+{% block content %}
+	<div class="jumbotron">
+		<div class="container">
+			<h1> Containers Info</h1>
+		</div>
+	</div>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<table class="table table-striped">
+					<thead>
+					<tr>
+						<td class="text-center"><b>No</b></td>
+						<td class="text-center"><b>Container ID</b></td>
+						<td class="text-center"><b>User Name</b></td>
+						<td class="text-center"><b>Challenge</b></td>
+						<td class="text-center"><b>Remote Info</b></td>
+						<td class="text-center"><b>Delete</b></td>
+						<!-- <td class="text-center"><b>Renew</b></td> -->
+					</tr>
+					</thead>
+					<tbody>
+					{% for container in containers %}
+						<tr>
+                            <th scope="row" class="text-center">{{ curr_page_start + loop.index }}</th>
+							<td class="text-center">
+								{{ container.id }}
+							</td>
+							<td class="text-center">
+                                    {{ container.user.name }}
+							</td>
+							<td class="text-center">
+                                    {{ container.challenge.name }}
+							</td>
+							<td class="text-center">
+								    {{ container.remote_info }}
+							</td>
+                            
+                            <td class="text-center">
+                                <a class="delete-container" container-id="{{ container.id }}" data-toggle="tooltip"
+                                     user-id="{{ container.user_id }}" data-placement="top" title="Destroy Container #{{ container.id }}">
+                                    <i class="fas fa-times"></i>
+                                </a>
+                            </td>
+                            <!-- <td class="text-center">
+                                <a class="renew-container" container-id="{{ container.id }}" data-toggle="tooltip"
+                                       user-id="{{ container.user.id }}" data-placement="top"
+                                       challenge-id="{{ container.challenge_id }}" title="Renew Container #{{ container.id }}">
+                                    <i class="fas fa-sync"></i>
+                                </a>
+                            </td> -->
+                        </tr>
+					{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+		{% if pages > 1 %}
+			<div class="row">
+				<div class="col-md-12">
+					<div class="text-center">Page
+						<br>
+						{% if curr_page != 1 %}
+							<a href="/plugins/plugin-dynamic/admin/containers?page={{ curr_page - 1 }}">
+								&lt;&lt;&lt;
+							</a>
+						{% endif %}
+						{% for page in range(1, pages + 1) %}
+							{% if curr_page != page %}
+								<a href="/plugins/plugin-dynamic/admin/containers?page={{ page }}">{{ page }}</a>
+							{% else %}
+								<b>{{ page }}</b>
+							{% endif %}
+						{% endfor %}
+						{% if curr_page != pages %}
+							<a href="/plugins/cplugin-dynamic/admin/containers?page={{ curr_page + 1 }}">
+								&gt;&gt;&gt;
+							</a>
+						{% endif %}
+					</div>
+				</div>
+			</div>
+		{% endif %}
+	</div>
+{% endblock %}
+
+{% block scripts %}
+  <script defer src="{{ url_for('plugins.plugin-dynamic.assets', path='containers.js') }}"></script>
+{% endblock %}
+
