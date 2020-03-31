@@ -1,0 +1,56 @@
+<form method="POST">
+	<div class="form-group">
+		<label>
+			Name<br>
+			<small class="form-text text-muted">Challenge Name</small>
+		</label>
+		<input type="text" class="form-control chal-name" name="name" value="{{ challenge.name }}">
+	</div>
+
+	<div class="form-group">
+		<label>
+			Category<br>
+			<small class="form-text text-muted">Challenge Category</small>
+		</label>
+		<input type="text" class="form-control chal-category" name="category" value="{{ challenge.category }}">
+	</div>
+
+	<div class="form-group">
+		<label>
+			Message<br>
+			<small class="form-text text-muted">
+				Use this to give a brief introduction to your challenge.
+			</small>
+		</label>
+		<textarea id="desc-editor" class="form-control chal-desc-editor" name="description" rows="10">{{ challenge.description }}</textarea>
+	</div>
+
+	<div class="form-group">
+		<label for="value">Flag Submission<br>
+			<small class="form-text text-muted">
+				The Address used to submit flag
+			</small>
+		</label>
+		<input type="text" class="form-control" name="flag_submission" placeholder="Enter docker image name"
+               required value="{{ challenge.flag_submission }}">
+
+	</div>
+
+	<div class="form-group">
+		<label>
+			State<br>
+			<small class="form-text text-muted">Changes the state of the challenge (e.g. visible, hidden)</small>
+		</label>
+
+		<select class="form-control custom-select" name="state">
+			<option value="visible" {% if challenge.state == "visible" %}selected{% endif %}>Visible</option>
+			<option value="hidden" {% if challenge.state == "hidden" %}selected{% endif %}>Hidden</option>
+		</select>
+	</div>
+
+	<div>
+		<button class="btn btn-success btn-outlined float-right" type="submit">
+			Update
+		</button>
+	</div>
+</form>
